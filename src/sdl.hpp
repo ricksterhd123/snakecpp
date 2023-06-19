@@ -3,7 +3,7 @@
 #include <exception>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
-
+#include <SDL2/SDL_ttf.h>
 template <class N>
 class Vector2
 {
@@ -78,6 +78,12 @@ public:
         free(message);
     }
 };
+
+// class Text
+// {
+//     private:
+//         TTF_Font font;
+// };
 
 class Window
 {
