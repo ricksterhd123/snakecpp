@@ -35,6 +35,10 @@ public:
         return Vector2(x % rVector.x, y % rVector.y);
     }
 
+    Vector2 operator*(int rNum) {
+        return Vector2(this->x * rNum, this->y * rNum);
+    }
+
     Vector2 operator-(Vector2 rVector)
     {
         return *this + Vector2(-rVector.x, -rVector.y);
