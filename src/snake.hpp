@@ -14,9 +14,10 @@ using namespace std;
 class Snake
 {
 private:
+    const int vertexSize = 10;
+
     bool died;
     Board* board;
-    Vector2<int> vertexSize;
     Vector2<int> velocity;
     vector<Vector2<int>> vertices;
 
@@ -27,9 +28,6 @@ public:
 
         // initial state
         died = false;
-
-        vertexSize.x = 5;
-        vertexSize.y = 5;
 
         // initial velocity
         velocity.x = vx;
@@ -63,19 +61,15 @@ public:
     void eat()
     {
         Vector2<int> first = vertices.at(0);
-        Vector2<int> velocityNormalized = Vector2<int>(
-            (velocity.x > 0) ? velocity.x / abs(velocity.x) : 0,
-            (velocity.y > 0) ? (velocity.y / abs(velocity.y)) : 0);
-        vertices.insert(vertices.begin(), first + velocityNormalized);
+        vertices.insert(vertices.begin(), first + velocity);
     }
 
     void update(Food* food)
     {
-        Vector2<int> velocityNormalized = Vector2<int>(
-            (velocity.x != 0) ? velocity.x / abs(velocity.x) : 0,
-            (velocity.y != 0) ? (velocity.y / abs(velocity.y)) : 0);
 
-        Vector2<int> newFirst = (vertices.at(0) + velocityNormalized * 10) % board->getSize();
+        int speed = floor(sqrt(pow(velocity.x, 2) + pow(velocity.y, 2)));
+
+        Vector2<int> newFirst = (vertices.at(0) + (velocity * vertexSize)) % board->getSize();
         Vector2<int> foodPos = food->getPosition();
 
         if (newFirst == food->getPosition())
@@ -103,7 +97,7 @@ public:
         for (std::vector<Vector2<int>>::iterator it = vertices.begin(); it < vertices.end(); it++)
         {
             SDL_SetRenderDrawColor(window->getRenderer(), 255, 0, 0, 255);
-            SDL_Rect point = {.x = (it->x), .y = (it->y), .w = 9, .h = 9};
+            SDL_Rect point = {.x = (it->x), .y = (it->y), .w = vertexSize - 1, .h = vertexSize - 1};
             SDL_RenderFillRect(window->getRenderer(), &point);
         }
     }

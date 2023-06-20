@@ -9,8 +9,8 @@ private:
     const int SCREEN_WIDTH = 640;
     const int SCREEN_HEIGHT = 480;
     const char *title = "snakecpp";
-    const int FPS = 1000 / 5;
     const int SNAKE_SPEED = 5;
+    const int FPS = 1000 / SNAKE_SPEED;
 
     Window *window;
     Board *board;
@@ -26,7 +26,7 @@ public:
     {
         window = new Window(title, SCREEN_WIDTH, SCREEN_HEIGHT);
         board = new Board(SCREEN_WIDTH, SCREEN_HEIGHT);
-        snake = new Snake(board, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SNAKE_SPEED, 0);
+        snake = new Snake(board, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 1, 0);
         food = new Food(board);
 
         lastUpdateTick = window->getTickCount();
@@ -68,19 +68,19 @@ public:
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == SDLK_LEFT && snakeVelocity.x <= 0)
                 {
-                    snake->setVelocity(-1 * SNAKE_SPEED, 0);
+                    snake->setVelocity(-1, 0);
                 }
                 if (event.key.keysym.sym == SDLK_RIGHT && snakeVelocity.x >= 0)
                 {
-                    snake->setVelocity(1 * SNAKE_SPEED, 0);
+                    snake->setVelocity(1, 0);
                 }
                 if (event.key.keysym.sym == SDLK_UP && snakeVelocity.y <= 0)
                 {
-                    snake->setVelocity(0, -1 * SNAKE_SPEED);
+                    snake->setVelocity(0, -1);
                 }
                 if (event.key.keysym.sym == SDLK_DOWN && snakeVelocity.y >= 0)
                 {
-                    snake->setVelocity(0, 1 * SNAKE_SPEED);
+                    snake->setVelocity(0, 1);
                 }
                 break;
             default:
