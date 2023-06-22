@@ -100,6 +100,7 @@ public:
 
     void draw()
     {
+        board->draw(window);
         snake->draw(window);
         food->draw(window);
         window->draw();

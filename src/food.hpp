@@ -36,7 +36,7 @@ public:
 
     void draw(Window *window)
     {
-        SDL_SetRenderDrawColor(window->getRenderer(), 0, 255, 0, 255);
+        SDL_SetRenderDrawColor(window->getRenderer(), 0, 0, 0, 255);
         SDL_Rect point = {.x = (position.x), .y = (position.y), .w = vertexSize - 1, .h = vertexSize - 1};
         SDL_RenderFillRect(window->getRenderer(), &point);
     }
