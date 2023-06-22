@@ -3,7 +3,7 @@
 
 ![v0.1.1 Screenshot](.docs/v0.1.1.png)
 
-## Pre-requisites:
+## Prerequisites:
 - Linux x86 (e.g., I build this using WSL Ubuntu on windows)
 - SDL2
 
