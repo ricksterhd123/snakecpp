@@ -10,6 +10,12 @@ int main()
         game->draw();
     }
 
+    cout << "You died" << endl;
+
+    game->sleep(5000);
+
+    cout << "Cleaning up and quitting..." << endl;
+
     delete game;
     return 0;
 }
