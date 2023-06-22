@@ -1,3 +1,5 @@
+#define DEBUG 1
+
 #include "sdl.hpp"
 #include "board.hpp"
 #include "snake.hpp"
@@ -6,8 +8,8 @@
 class Game
 {
 private:
-    const int SCREEN_WIDTH = 640;
-    const int SCREEN_HEIGHT = 480;
+    const int SCREEN_WIDTH = 300;
+    const int SCREEN_HEIGHT = 300;
     const char *title = "snakecpp";
     const int SNAKE_SPEED = 5;
     const int FPS = 1000 / SNAKE_SPEED;
@@ -57,39 +59,40 @@ public:
         Uint32 currentTick = window->getTickCount();
         Vector2<int> snakeVelocity = snake->getVelocity();
 
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            switch (event.type)
-            {
-            case SDL_QUIT:
-                running = false;
-                break;
-            case SDL_KEYDOWN:
-                if (event.key.keysym.sym == SDLK_LEFT && snakeVelocity.x <= 0)
-                {
-                    snake->setVelocity(-1, 0);
-                }
-                if (event.key.keysym.sym == SDLK_RIGHT && snakeVelocity.x >= 0)
-                {
-                    snake->setVelocity(1, 0);
-                }
-                if (event.key.keysym.sym == SDLK_UP && snakeVelocity.y <= 0)
-                {
-                    snake->setVelocity(0, -1);
-                }
-                if (event.key.keysym.sym == SDLK_DOWN && snakeVelocity.y >= 0)
-                {
-                    snake->setVelocity(0, 1);
-                }
-                break;
-            default:
-                break;
-            }
-        }
-
         if (!paused && currentTick - lastUpdateTick > FPS)
         {
+
+            SDL_Event event;
+            while (SDL_PollEvent(&event))
+            {
+                switch (event.type)
+                {
+                case SDL_QUIT:
+                    running = false;
+                    break;
+                case SDL_KEYDOWN:
+                    if (event.key.keysym.sym == SDLK_LEFT && snakeVelocity.x <= 0)
+                    {
+                        snake->setVelocity(-1, 0);
+                    }
+                    if (event.key.keysym.sym == SDLK_RIGHT && snakeVelocity.x >= 0)
+                    {
+                        snake->setVelocity(1, 0);
+                    }
+                    if (event.key.keysym.sym == SDLK_UP && snakeVelocity.y <= 0)
+                    {
+                        snake->setVelocity(0, -1);
+                    }
+                    if (event.key.keysym.sym == SDLK_DOWN && snakeVelocity.y >= 0)
+                    {
+                        snake->setVelocity(0, 1);
+                    }
+                    break;
+                default:
+                    break;
+                }
+            }
+
             snake->update(food);
             lastUpdateTick = window->getTickCount();
         }
@@ -100,5 +103,10 @@ public:
         snake->draw(window);
         food->draw(window);
         window->draw();
+    }
+
+    void sleep(Uint32 ms)
+    {
+        SDL_Delay(ms);
     }
 };
