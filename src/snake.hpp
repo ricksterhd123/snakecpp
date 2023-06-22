@@ -1,15 +1,15 @@
 #pragma once
 
-#include <iostream>
 #include <vector>
-#include <algorithm>
 #include <cstdlib>
 
 #include "sdl.hpp"
 #include "board.hpp"
 #include "food.hpp"
 
-using namespace std;
+using std::vector;
+using std::cout;
+using std::endl;
 
 class Snake
 {
@@ -18,6 +18,7 @@ private:
 
     bool died;
     Board* board;
+    Vector2<int> boardSize;
     Vector2<int> velocity;
     vector<Vector2<int>> vertices;
 
@@ -25,6 +26,7 @@ public:
     Snake(Board* board, int x, int y, int vx, int vy)
     {
         this->board = board;
+        boardSize = board->getSize();
 
         // initial state
         died = false;
@@ -37,9 +39,15 @@ public:
         vertices.insert(vertices.end(), Vector2<int>(x, y));
     }
 
+    bool isOutOfBounds()
+    {
+        Vector2<int> head = vertices.at(0);
+        return head.x <= 0 || head.x >= boardSize.x || head.y <= 0 || head.y >= boardSize.y;
+    }
+
     bool getDied()
     {
-        return died;
+        return isOutOfBounds() || died;
     }
 
     void setDied(bool died)
@@ -68,9 +76,12 @@ public:
     {
 
         int speed = floor(sqrt(pow(velocity.x, 2) + pow(velocity.y, 2)));
-
-        Vector2<int> newFirst = (vertices.at(0) + (velocity * vertexSize)) % board->getSize();
+        Vector2<int> newFirst = (vertices.at(0) + (velocity * vertexSize));
         Vector2<int> foodPos = food->getPosition();
+
+#ifdef DEBUG
+        cout << newFirst << endl;
+#endif
 
         if (newFirst == food->getPosition())
         {
@@ -93,7 +104,6 @@ public:
 
     void draw(Window* window)
     {
-        Vector2<int> boardSize = board->getSize();
         for (std::vector<Vector2<int>>::iterator it = vertices.begin(); it < vertices.end(); it++)
         {
             SDL_SetRenderDrawColor(window->getRenderer(), 255, 0, 0, 255);
