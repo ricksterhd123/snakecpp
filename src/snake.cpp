@@ -1,3 +1,5 @@
+#define DEBUG 1
+
 #include "game.hpp"
 
 int main()

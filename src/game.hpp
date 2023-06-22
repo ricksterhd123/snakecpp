@@ -1,5 +1,3 @@
-#define DEBUG 1
-
 #include "sdl.hpp"
 #include "board.hpp"
 #include "snake.hpp"
