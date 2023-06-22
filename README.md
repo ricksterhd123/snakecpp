@@ -8,4 +8,9 @@
 - SDL2
 
 ## Setup
-`mkdir build && cd build && cmake .. && cmake --build . && ./snake`
+### Locally
+`make`
+
+### WASM
+Install emscripten
+`make wasm`

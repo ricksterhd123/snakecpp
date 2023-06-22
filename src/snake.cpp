@@ -1,16 +1,30 @@
 #define DEBUG 1
 
 #include "game.hpp"
+#ifdef EMSCRIPTEN
+#include <emscripten.h>
+#endif
+
+Game *game;
+
+void main_loop()
+{
+    game->update();
+    game->draw();
+}
 
 int main()
 {
-    Game* game = new Game();
+    game = new Game();
 
+#ifdef EMSCRIPTEN
+    emscripten_set_main_loop(main_loop, 0, 1);
+#else
     while (game->isRunning())
     {
-        game->update();
-        game->draw();
+        main_loop();
     }
+#endif
 
     cout << "You died" << endl;
 

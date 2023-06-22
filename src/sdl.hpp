@@ -4,7 +4,6 @@
 #include <exception>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
-#include <SDL2/SDL_ttf.h>
 
 template <class N>
 N clamp(N n, N a, N b)
@@ -116,7 +115,7 @@ private:
 public:
     Window(const char *title, int width, int height)
     {
-        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS) != 0)
+        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0)
         {
             throw SDLError();
         }
@@ -127,7 +126,7 @@ public:
             SDL_WINDOWPOS_CENTERED,
             width,  // width, in pixels
             height, // height, in pixels
-            SDL_WINDOW_OPENGL);
+            NULL);
 
         if (window == NULL)
         {

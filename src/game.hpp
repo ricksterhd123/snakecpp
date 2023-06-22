@@ -10,7 +10,7 @@ private:
     const int SCREEN_HEIGHT = 300;
     const char *title = "snakecpp";
     const int SNAKE_SPEED = 5;
-    const int FPS = 1000 / SNAKE_SPEED;
+    const int FPS = SNAKE_SPEED;
 
     Window *window;
     Board *board;
@@ -57,7 +57,7 @@ public:
         Uint32 currentTick = window->getTickCount();
         Vector2<int> snakeVelocity = snake->getVelocity();
 
-        if (!paused && currentTick - lastUpdateTick > FPS)
+        if (isRunning())
         {
 
             SDL_Event event;
@@ -93,6 +93,7 @@ public:
 
             snake->update(food);
             lastUpdateTick = window->getTickCount();
+            SDL_Delay((1000 / FPS) - SDL_GetTicks() + lastUpdateTick);
         }
     }
 

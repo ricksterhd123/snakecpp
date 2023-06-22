@@ -4,4 +4,4 @@ project(snake)
 
 add_executable(snake src/snake.cpp)
 
-target_link_libraries(snake PUBLIC SDL2 SDL2_ttf GL)
+target_link_libraries(snake PUBLIC SDL2 GL)
