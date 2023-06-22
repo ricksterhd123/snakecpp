@@ -3,6 +3,10 @@
 
 ![v0.1.1 Screenshot](.docs/v0.1.1.png)
 
+Also runs in the web-browser
+
+![v0.1.1 WASM Screenshot](.docs/v0.1.1-wasm.png)
+
 ## Prerequisites:
 - Linux x86 (e.g., I build this using WSL Ubuntu on windows)
 - Python3 (for wasm only)
