@@ -5,12 +5,18 @@
 
 ## Prerequisites:
 - Linux x86 (e.g., I build this using WSL Ubuntu on windows)
-- SDL2
+- Python3 (for wasm only)
+- [emscripten](https://emscripten.org/docs/getting_started/downloads.html#installation-instructions-using-the-emsdk-recommended) (for wasm only)
+- SDL2 (via package manager)
 
 ## Setup
 ### Locally
-`make`
+- `make`
+- `cd build`
+- `./snake`
 
 ### WASM
-Install emscripten
-`make wasm`
+- `make wasm`
+- `cd build`
+- `python3 -m http.server`
+- Go to http://localhost:8000/snake.html
