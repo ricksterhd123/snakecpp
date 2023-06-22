@@ -23,9 +23,9 @@ public:
     bool isOutOfBounds(Vector2<int> position)
     {
         return position.x <= margin ||
-               position.x >= size.x - margin ||
+               position.x >= size.x - (2 * margin) ||
                position.y <= margin ||
-               position.y >= size.y - margin;
+               position.y >= size.y - (2 * margin);
     }
 
     void draw(Window *window)
